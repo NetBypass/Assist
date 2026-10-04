@@ -1,0 +1,11 @@
+<resources>
+    <color name="assist_primary">#2962FF</color>
+    <color name="assist_primary_dark">#0039CB</color>
+    <color name="assist_accent">#00E5FF</color>
+    <color name="assist_background">#0D1117</color>
+    <color name="assist_surface">#161B22</color>
+    <color name="assist_text">#E6EDF3</color>
+    <color name="assist_text_muted">#8B949E</color>
+    <color name="assist_danger">#FF5252</color>
+    <color name="assist_ok">#2ECC71</color>
+</resources>

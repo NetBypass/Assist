@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/assist_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/assist_text"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Root-powered, voice-controlled AI home assistant"
+            android:textColor="@color/assist_text_muted"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/assist_surface"
+            android:padding="12dp"
+            android:text="Status: idle"
+            android:textColor="@color/assist_text"
+            android:textSize="14sp" />
+
+        <!-- Connection -->
+        <TextView style="@style/SectionHeader" android:text="API Connection" />
+
+        <EditText
+            android:id="@+id/etBaseUrl"
+            style="@style/AssistInput"
+            android:hint="Base URL (OpenAI-compatible, e.g. https://host/v1)"
+            android:inputType="textUri" />
+
+        <EditText
+            android:id="@+id/etApiKey"
+            style="@style/AssistInput"
+            android:hint="API key (leave blank if endpoint is open)"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/etModel"
+            style="@style/AssistInput"
+            android:hint="Model id (e.g. gpt-4o-mini)" />
+
+        <Button
+            android:id="@+id/btnFetchModels"
+            style="@style/AssistButtonOutline"
+            android:text="Fetch available models" />
+
+        <!-- Voice -->
+        <TextView style="@style/SectionHeader" android:text="Voice" />
+
+        <EditText
+            android:id="@+id/etWakeWord"
+            style="@style/AssistInput"
+            android:hint="Wake word (e.g. hey assist)" />
+
+        <Button
+            android:id="@+id/btnTestVoice"
+            style="@style/AssistButtonOutline"
+            android:text="Test microphone + speaker" />
+
+        <!-- Behavior -->
+        <TextView style="@style/SectionHeader" android:text="Behavior" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swStartOnBoot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Start automatically on boot"
+            android:textColor="@color/assist_text" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swHeadless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Headless mode (keep running with screen off, act like a smart speaker)"
+            android:textColor="@color/assist_text" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swConfirmDangerous"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:checked="true"
+            android:text="Ask for spoken confirmation before dangerous actions"
+            android:textColor="@color/assist_text" />
+
+        <!-- Root -->
+        <TextView style="@style/SectionHeader" android:text="Root Access" />
+
+        <TextView
+            android:id="@+id/tvRootStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Root: unknown"
+            android:textColor="@color/assist_text_muted"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnGrantRoot"
+            style="@style/AssistButtonOutline"
+            android:text="Request / test root (su)" />
+
+        <Button
+            android:id="@+id/btnBatteryOptimization"
+            style="@style/AssistButtonOutline"
+            android:text="Disable battery optimization for Assist" />
+
+        <!-- Controls -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnSave"
+                style="@style/AssistButtonFilled"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/btnStart"
+                style="@style/AssistButtonFilled"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:text="Start" />
+
+            <Button
+                android:id="@+id/btnStop"
+                style="@style/AssistButtonFilled"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:text="Stop" />
+        </LinearLayout>
+
+        <!-- Logs -->
+        <TextView style="@style/SectionHeader" android:text="Logs" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@color/assist_surface"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvLogs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text=""
+                android:textColor="@color/assist_text_muted"
+                android:textIsSelectable="true"
+                android:textSize="11sp" />
+        </ScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
