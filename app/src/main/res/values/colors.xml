@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="assist_primary">#7C5CFC</color>
+    <color name="assist_primary_dark">#5A3FD6</color>
+    <color name="assist_secondary">#28D7A1</color>
+    <color name="assist_background">#0D1017</color>
+    <color name="assist_surface">#171B25</color>
+    <color name="assist_surface_high">#202634</color>
+    <color name="assist_text">#F3F5FA</color>
+    <color name="assist_text_muted">#AEB7C7</color>
+    <color name="assist_error">#FF6B7A</color>
+    <color name="assist_warning">#FFCA6A</color>
+</resources>

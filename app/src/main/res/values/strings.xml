@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Assist</string>
+    <string name="notification_channel_name">Voice assistant</string>
+    <string name="notification_channel_description">Keeps the opted-in voice assistant available</string>
+    <string name="notification_title">Assist is ready</string>
+</resources>

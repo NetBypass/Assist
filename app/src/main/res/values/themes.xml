@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Assist" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/assist_primary</item>
+        <item name="colorSecondary">@color/assist_secondary</item>
+        <item name="colorSurface">@color/assist_surface</item>
+        <item name="colorSurfaceVariant">@color/assist_surface_high</item>
+        <item name="colorOnSurface">@color/assist_text</item>
+        <item name="colorError">@color/assist_error</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/assist_background</item>
+        <item name="android:statusBarColor">@color/assist_background</item>
+        <item name="android:windowBackground">@color/assist_background</item>
+    </style>
+</resources>
