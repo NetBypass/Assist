@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Many self-hosted / tunneled OpenAI-compatible endpoints (local LLM servers, ngrok/abc-tunnel
+  style tunnels, LAN-hosted inference servers) may be reached over plain HTTP during setup or
+  on a local network. This config allows cleartext traffic for ALL domains so the assistant can
+  talk to whatever endpoint the user configures. HTTPS is still used whenever the configured
+  base URL is https://.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Assist</string>
+    <string name="notif_channel_name">Assist Voice Service</string>
+    <string name="notif_running">Assist is listening</string>
+</resources>

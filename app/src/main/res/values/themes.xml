@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Assist" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/assist_primary</item>
+        <item name="colorPrimaryDark">@color/assist_primary_dark</item>
+        <item name="colorAccent">@color/assist_accent</item>
+        <item name="android:windowBackground">@color/assist_background</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@color/assist_background</item>
+    </style>
+</resources>
