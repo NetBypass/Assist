@@ -124,16 +124,25 @@ class AssistVoiceInteractionSession(private val appContext: Context) :
         }
         showStatus(request, true)
         engine.ask(request, object : ConversationEngine.Listener {
-            override fun onStatus(message: String) = handler.post { showStatus(message, true) }
-            override fun onTool(name: String) = handler.post { showStatus("Using $name…", true) }
-            override fun onAnswer(text: String) = handler.post {
-                showStatus(text, false)
-                if (SettingsRepository(appContext).load().speakResponses) {
-                    tts?.speak(text.take(3_500), TextToSpeech.QUEUE_FLUSH, null, "assist-session")
+            override fun onStatus(message: String) {
+                handler.post { showStatus(message, true) }
+            }
+
+            override fun onTool(name: String) {
+                handler.post { showStatus("Using $name…", true) }
+            }
+
+            override fun onAnswer(text: String) {
+                handler.post {
+                    showStatus(text, false)
+                    if (SettingsRepository(appContext).load().speakResponses) {
+                        tts?.speak(text.take(3_500), TextToSpeech.QUEUE_FLUSH, null, "assist-session")
+                    }
                 }
             }
-            override fun onError(message: String) = handler.post {
-                showStatus("Request failed: $message", false)
+
+            override fun onError(message: String) {
+                handler.post { showStatus("Request failed: $message", false) }
             }
         })
     }
