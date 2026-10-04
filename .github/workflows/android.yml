@@ -42,17 +42,45 @@ jobs:
           yes | sdkmanager --licenses --sdk_root="$ANDROID_SDK_ROOT" >/dev/null || true
           sdkmanager --sdk_root="$ANDROID_SDK_ROOT" "platform-tools" "platforms;android-35" "build-tools;35.0.0"
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-      - name: Unit tests and debug APK
+      - name: Unit tests and APK builds
         shell: bash
         run: |
           set +e
-          gradle --no-daemon testDebugUnitTest assembleDebug 2>&1 | tee build.log
+          gradle --no-daemon testDebugUnitTest assembleDebug assembleRelease 2>&1 | tee build.log
           status=${PIPESTATUS[0]}
           if [ "$status" -ne 0 ]; then
             summary=$(tail -n 120 build.log | sed ':a;N;$!ba;s/%/%25/g;s/\r/%0D/g;s/\n/%0A/g')
             echo "::error title=Gradle build failed::$summary"
           fi
           exit "$status"
+      - name: Sign release APK
+        if: success()
+        shell: bash
+        run: |
+          export KEYSTORE_PASSWORD="$(openssl rand -hex 24)"
+          keytool -genkeypair -v \
+            -keystore "$RUNNER_TEMP/assist-release.jks" \
+            -storepass "$KEYSTORE_PASSWORD" \
+            -keypass "$KEYSTORE_PASSWORD" \
+            -alias assist \
+            -keyalg RSA -keysize 4096 -validity 3650 \
+            -dname "CN=Assist CI Release, O=NetBypass, C=ID"
+          "$ANDROID_SDK_ROOT/build-tools/35.0.0/apksigner" sign \
+            --ks "$RUNNER_TEMP/assist-release.jks" \
+            --ks-key-alias assist \
+            --ks-pass env:KEYSTORE_PASSWORD \
+            --key-pass env:KEYSTORE_PASSWORD \
+            --out app/build/outputs/apk/release/assist-v0.1.0-release.apk \
+            app/build/outputs/apk/release/app-release-unsigned.apk
+          "$ANDROID_SDK_ROOT/build-tools/35.0.0/apksigner" verify --verbose \
+            app/build/outputs/apk/release/assist-v0.1.0-release.apk
+      - name: Upload release APK
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: assist-release-apk
+          path: app/build/outputs/apk/release/assist-v0.1.0-release.apk
+          if-no-files-found: error
       - name: Upload debug APK
         if: success()
         uses: actions/upload-artifact@v4

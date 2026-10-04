@@ -31,6 +31,8 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 The project never embeds an endpoint credential. Enter one in the app after installation, or leave the API-key field empty when the server is open.
 
+The `assist-release-apk` CI artifact is minified and signed with a temporary per-run key for immediate sideload testing. For production updates, configure a persistent private signing key outside Git; APKs signed by different keys cannot update one another without uninstalling the previous build.
+
 ## First-time setup
 
 1. Open **Assist**.
